@@ -15,6 +15,5 @@ IMAGES_DIRNAME = 'train'
 COCO_JSON_PATH = glob.glob(os.path.join(PROJECT_PATH, '**', COCO_JSON_FILENAME), recursive=True)[0]
 IMAGES_DIR = os.path.join(PROJECT_PATH, IMAGES_DIRNAME)
 
-image_index = random.randint(0, 300)
-print(image_index)
+image_index = random.randint(200, 300)
 coco_json_plot_image_and_bbox(COCO_JSON_PATH, IMAGES_DIR, image_index)

@@ -1,9 +1,13 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from PIL import Image
+import os
+import glob
 
-def yolo_plot_image_and_bbox(txt_path, image_path, class_id_to_name):
+def yolo_plot_image_and_bbox(project_path, image_name, class_id_to_name):
     # Fungsi untuk membaca file YOLO
+    txt_path = glob.glob(os.path.join(project_path, '**', image_name + '.txt'), recursive=True)[0]
+    image_path = glob.glob(os.path.join(project_path, '**', image_name + '.jpg'), recursive=True)[0]
     def parse_yolo_txt(txt_file):
         objects = []
         with open(txt_file, 'r') as f:
@@ -44,4 +48,6 @@ def yolo_plot_image_and_bbox(txt_path, image_path, class_id_to_name):
         label = class_id_to_name[class_id]
         plt.text(xmin, ymin - 10, label, color='white', fontsize=12, backgroundcolor='red')
 
+    title = image_path.split('\\')[-1]
+    plt.title(f"{title}")
     plt.show()

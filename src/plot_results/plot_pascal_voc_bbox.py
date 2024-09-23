@@ -1,10 +1,15 @@
+from PIL import Image
 import xml.etree.ElementTree as ET
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from PIL import Image
+import os
+import glob
 
-def pascal_voc_plot_image_and_bbox(xml_path, image_path):
+def pascal_voc_plot_image_and_bbox(project_path, image_name):
     # Fungsi untuk membaca XML Pascal VOC
+    xml_path = glob.glob(os.path.join(project_path, '**', image_name + '.xml'), recursive=True)[0]
+    image_path = glob.glob(os.path.join(project_path, '**', image_name + '.jpg'), recursive=True)[0]
+
     def parse_voc_xml(xml_file):
         tree = ET.parse(xml_file)
         root = tree.getroot()
@@ -47,4 +52,6 @@ def pascal_voc_plot_image_and_bbox(xml_path, image_path):
         # Tambahkan teks di atas bounding box
         plt.text(xmin, ymin - 10, label, color='white', fontsize=10, backgroundcolor='red')
 
+    title = image_path.split('\\')[-1]
+    plt.title(title)
     plt.show()
