@@ -45,20 +45,3 @@ def yolo_plot_image_and_bbox(txt_path, image_path, class_id_to_name):
         plt.text(xmin, ymin - 10, label, color='white', fontsize=12, backgroundcolor='red')
 
     plt.show()
-
-
-if __name__ == '__main__':
-    # Path file YOLO
-    
-    # Mapping class_id ke label nama (misalnya dari file .names di YOLO)
-    class_id_to_name = {
-        0: "car",
-        # Tambahin sesuai label di dataset lo
-    }
-
-    # Path ke file txt YOLO dan gambar
-    txt_path = 'Data Zone/Traffic Assets/traffic-YOLOv8/train/labels/frame_000200.txt'
-    image_path = 'Data Zone/Traffic Assets/traffic-YOLOv8/train/images/frame_000200.jpg'
-
-    # Plot gambar dan bounding box
-    yolo_plot_image_and_bbox(txt_path, image_path, class_id_to_name)
