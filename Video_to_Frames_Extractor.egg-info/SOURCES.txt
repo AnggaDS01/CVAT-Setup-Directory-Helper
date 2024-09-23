@@ -1,5 +1,0 @@
-setup.py
-Video_to_Frames_Extractor.egg-info/PKG-INFO
-Video_to_Frames_Extractor.egg-info/SOURCES.txt
-Video_to_Frames_Extractor.egg-info/dependency_links.txt
-Video_to_Frames_Extractor.egg-info/top_level.txt
