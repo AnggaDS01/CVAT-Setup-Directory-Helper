@@ -3,19 +3,24 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import os
 import json
+import glob
 
 
-def coco_json_plot_image_and_bbox(json_path, base_dir, image_index=0):
-    with open(json_path, 'r') as file:
+def coco_json_plot_image_and_bbox(project_path, coco_json_filename, image_index=0):
+    IMAGES_DIRNAME = 'train'
+    coco_json_path = glob.glob(os.path.join(project_path, '**', coco_json_filename), recursive=True)[0]
+    images_dir = os.path.join(project_path, IMAGES_DIRNAME)
+
+    with open(coco_json_path, 'r') as file:
         data = json.load(file)
 
     # Cari annotations yang sesuai dengan image_id
-    annotations_for_target = [ann for ann in data['annotations'] if ann['image_id'] == image_index]
+    annotations_for_target = [ann for ann in data['annotations'] if ann['image_id'] == image_index + 1]
 
     if len(annotations_for_target) > 0:
         # Ambil path gambar dari image_id
-        image_data = next(img for img in data['images'] if img['id'] == image_index)
-        img_path = os.path.join(base_dir, image_data['file_name'])  # Path ke file gambar
+        image_data = next(img for img in data['images'] if img['id'] == image_index + 1)
+        img_path = os.path.join(images_dir, image_data['file_name'])  # Path ke file gambar
 
         # Load gambar
         img = Image.open(img_path)
@@ -37,4 +42,4 @@ def coco_json_plot_image_and_bbox(json_path, base_dir, image_index=0):
         plt.title(f"{image_data['file_name']}")
         plt.show()
     else:
-        print(f"No annotations found for image_id {image_index}")
+        print(f"No annotations found for image_id {image_index + 1}")

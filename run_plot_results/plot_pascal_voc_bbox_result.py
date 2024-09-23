@@ -1,6 +1,5 @@
 from src.plot_results.plot_pascal_voc_bbox import pascal_voc_plot_image_and_bbox
 import os
-import glob
 
 GRANDPARENT_NAME = 'Data Zone' # Put your data in this folder
 PARENT_NAME = 'Traffic Assets' # Change this

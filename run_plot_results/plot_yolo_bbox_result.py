@@ -1,6 +1,5 @@
 from src.plot_results.plot_yolo_bbox import yolo_plot_image_and_bbox
 import os
-import glob
 
 GRANDPARENT_NAME = 'Data Zone' # Put your data in this folder
 PARENT_NAME = 'Traffic Assets' # Change this
@@ -12,7 +11,7 @@ IMAGE_NAME = 'frame_000322'
 class_id_to_name = {
     0: "car",
     # Tambahin sesuai label di dataset
-} # sesuai yang di data.yaml
+} # sesuaikan yang di data.yaml
 
 # Plot gambar dan bounding box
 yolo_plot_image_and_bbox(PROJECT_PATH, IMAGE_NAME, class_id_to_name)

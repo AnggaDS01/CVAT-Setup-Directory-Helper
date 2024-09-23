@@ -9,11 +9,7 @@ PARENT_NAME = 'Traffic Assets' # Change this
 PROJECT_NAME = 'traffic-COCO' # Change this
 BASE_DIR = os.path.join(GRANDPARENT_NAME, PARENT_NAME)
 PROJECT_PATH = os.path.join(BASE_DIR, PROJECT_NAME)
-
 COCO_JSON_FILENAME = '_instances_default.json'
-IMAGES_DIRNAME = 'train'
-COCO_JSON_PATH = glob.glob(os.path.join(PROJECT_PATH, '**', COCO_JSON_FILENAME), recursive=True)[0]
-IMAGES_DIR = os.path.join(PROJECT_PATH, IMAGES_DIRNAME)
 
 image_index = random.randint(200, 300)
-coco_json_plot_image_and_bbox(COCO_JSON_PATH, IMAGES_DIR, image_index)
+coco_json_plot_image_and_bbox(PROJECT_PATH, COCO_JSON_FILENAME, image_index=390)
