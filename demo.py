@@ -1,64 +1,50 @@
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from PIL import Image
+import os
+import json
 
-def yolo_plot_image_and_bbox(txt_path, image_path, class_id_to_name):
-    # Fungsi untuk membaca file YOLO
-    def parse_yolo_txt(txt_file):
-        objects = []
-        with open(txt_file, 'r') as f:
-            for line in f.readlines():
-                data = line.strip().split()
-                class_id = int(data[0])
-                x_center = float(data[1])
-                y_center = float(data[2])
-                width = float(data[3])
-                height = float(data[4])
-                objects.append((class_id, x_center, y_center, width, height))
-        return objects
+base_dir = 'Data Zone/Traffic Assets/traffic-COCO'
 
-    # Parse file YOLO untuk mendapatkan objek dan bounding box
-    objects = parse_yolo_txt(txt_path)
+annotations_json = 'annotations/_instances_default.json'
+train_json = 'train/_train_instances_default.json'
+valid_json = 'valid/_valid_instances_default.json'
 
-    # Load gambar
-    img = Image.open(image_path)
-    img_width, img_height = img.size
+json_path = os.path.join(base_dir, annotations_json) 
+train_json_path = os.path.join(base_dir, train_json) 
+valid_json_path = os.path.join(base_dir, valid_json) 
 
-    # Tampilkan gambar
-    fig, ax = plt.subplots(1)
-    ax.imshow(img)
+with open(json_path, 'r') as file:
+    coco_data = json.load(file)
 
-    # Loop melalui objek dan gambar bounding box serta labelnya
-    for class_id, x_center, y_center, width, height in objects:
-        # Konversi koordinat relatif ke absolut
-        xmin = int((x_center - width / 2) * img_width)
-        ymin = int((y_center - height / 2) * img_height)
-        xmax = int((x_center + width / 2) * img_width)
-        ymax = int((y_center + height / 2) * img_height)
-        
-        # Gambar bounding box
-        rect = patches.Rectangle((xmin, ymin), xmax - xmin, ymax - ymin, linewidth=2, edgecolor='r', facecolor='none')
-        ax.add_patch(rect)
-
-        # Tambahkan label objek di atas bounding box
-        label = class_id_to_name[class_id]
-        plt.text(xmin, ymin - 10, label, color='white', fontsize=12, backgroundcolor='red')
-
-    plt.show()
-
-
-if __name__ == '__main__':
-    # Path file YOLO
+with open(train_json_path, 'r') as file:
+    train_coco_data = json.load(file)
     
-    # Mapping class_id ke label nama (misalnya dari file .names di YOLO)
-    class_id_to_name = {
-        0: "car",
-        # Tambahin sesuai label di dataset lo
-    }
+with open(valid_json_path, 'r') as file:
+    valid_coco_data = json.load(file)
 
-    # Path ke file txt YOLO dan gambar
-    txt_path = 'Data Zone/Traffic Assets/traffic-YOLOv8/train/labels/frame_000200.txt'
-    image_path = 'Data Zone/Traffic Assets/traffic-YOLOv8/train/images/frame_000200.jpg'
+print('\n\n')
+print(coco_data.keys())
+print(train_coco_data.keys())
+print(valid_coco_data.keys())
+print('\n\n')
 
-    # Plot gambar dan bounding box
-    yolo_plot_image_and_bbox(txt_path, image_path, class_id_to_name)
+images = []
+train_images = []
+valid_images = []
+
+for i in range(len(coco_data['images'])):
+    images.append(coco_data['images'][i]['file_name'])
+
+for i in range(len(train_coco_data['images'])):
+    train_images.append(train_coco_data['images'][i]['file_name'])
+
+for i in range(len(valid_coco_data['images'])):
+    valid_images.append(valid_coco_data['images'][i]['file_name'])
+
+valid_images_list = os.listdir(os.path.join(base_dir, 'valid'))[:-1]
+train_images_list = os.listdir(os.path.join(base_dir, 'train'))[:-1]
+
+print(sorted(valid_images) == sorted(valid_images_list))
+print(sorted(train_images) == sorted(train_images_list))
+print(coco_data['categories'] == train_coco_data['categories'])
+print(coco_data['categories'] == valid_coco_data['categories'])
+
+print('\n\n')

@@ -1,0 +1,62 @@
+for-CVAT-free-Convert-Video-to-Sequences
+├── .gitignore
+├── Data Zone
+│   └── Traffic Assets
+│       ├── 4K Video of Highway Traffic! (online-video-cutter.com).mp4
+│       └── traffic-COCO
+│           └── train
+│           |   ├── _train_instances_default.json
+│           |   ├── frame_000000.jpg
+│           |   ├── frame_000001.jpg
+│           |   ├── .
+│           |   ├── .
+│           |   ├── .
+│           |   └── (frame ke n)
+│           └── valid
+│               ├── _valid_instances_default.json
+│               ├── frame_000300.jpg
+│               ├── frame_000301.jpg
+│               ├── .
+│               ├── .
+│               ├── .
+│               └── (frame ke n)
+├── demo.py
+├── notebook
+│   └── experiments.ipynb
+├── pipeline
+│   ├── json_video_to_sequence_pipeline.py
+│   ├── xml_video_to_sequence_pipeline.py
+│   ├── yolo_video_to_sequence_pipeline.py
+|   └── __pycache__
+├── requirements.txt
+├── run_pipeline.py
+├── run_plot_results
+│   ├── plot_coco_json_bbox_result.py
+│   ├── plot_pascal_voc_bbox_result.py
+│   └── plot_yolo_bbox_result.py
+├── setup.py
+└── src
+    ├── coco_src
+    │   ├── coco_output_setup_directory_structure.py
+    │   ├── modify_json_file.py
+    │   └── __pycache__
+    ├── get_file_names_from_txt.py
+    ├── pascal_xml_src
+    │   ├── modify_xml_file.py
+    │   ├── update_xml.py
+    │   ├── xml_output_setup_directory_structure.py
+    │   └── __pycache__
+    ├── plot_results
+    │   ├── plot_coco_json_bbox.py
+    │   ├── plot_pascal_voc_bbox.py
+    │   ├── plot_yolo_bbox.py
+    │   └── __pycache__
+    ├── video_to_frames.py
+    ├── yolo_src
+    │   ├── extract_classes_from_data_yaml.py
+    │   ├── setup_directory_structure.py
+    │   ├── update_yaml.py
+    │   └── __pycache__
+    └── __pycache__
+        ├── get_file_names_from_txt.cpython-39.pyc
+        └── video_to_frames.cpython-39.pyc
