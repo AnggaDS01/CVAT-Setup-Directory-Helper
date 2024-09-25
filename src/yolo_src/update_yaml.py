@@ -4,7 +4,7 @@ import os
 import yaml
 
 # Fungsi untuk memperbarui data.yaml ke format YOLOv8
-def update_data_yaml(base_dir, project_name):
+def update_data_yaml(base_dir, project_name, data_store_dir, train_dir_name, valid_dir_name, images_dir):
     old_data_yaml_path = os.path.join(base_dir, 'data.yaml')
     
     # Baca kelas dari data.yaml yang sudah ada
@@ -12,7 +12,9 @@ def update_data_yaml(base_dir, project_name):
     
     # Buat path baru untuk train, val, dan test
     new_data = {
-        'train': f'{project_name}/train/images',
+        'annotations': f'{project_name}/{data_store_dir}/{images_dir}',
+        'train': f'{project_name}/{train_dir_name}/{images_dir}',
+        'valid': f'{project_name}/{valid_dir_name}/{images_dir}',
         'nc': len(label_classes),  # Jumlah kelas
         'names': label_classes      # Daftar kelas
     }

@@ -2,20 +2,21 @@ import os
 import shutil
 
 # Fungsi untuk membuat folder baru dan memindahkan file
-def setup_directory_structure(project_path):
-    train_dir = os.path.join(project_path, 'train')
+def setup_directory_structure(project_path, data_store_dir_name, images_dir_name, labels_dir_name):
+    annotations_dir = os.path.join(project_path, data_store_dir_name)
     
-    if os.path.exists(train_dir):
-        print(f"Folder {train_dir} sudah dibuat.")
+    if os.path.exists(annotations_dir):
+        print(f"Folder {annotations_dir} sudah dibuat.")
         return
 
-    # Membuat folder 'train/images' dan 'train/labels'
-    os.makedirs(os.path.join(train_dir, 'images'), exist_ok=True)
-    os.makedirs(os.path.join(train_dir, 'labels'), exist_ok=True)
-    
     # Memindahkan file dari 'labels/train/' ke 'train/labels/'
     old_labels_dir = os.path.join(project_path, 'labels', 'train')
-    new_labels_dir = os.path.join(train_dir, 'labels')
+    new_labels_dir = os.path.join(annotations_dir, labels_dir_name)
+    images_dir_name = os.path.join(annotations_dir, images_dir_name)
+
+    # Membuat folder 'train/images' dan 'train/labels'
+    os.makedirs(images_dir_name, exist_ok=True)
+    os.makedirs(new_labels_dir, exist_ok=True)
     
     for file_name in os.listdir(old_labels_dir):
         old_file_path = os.path.join(old_labels_dir, file_name)

@@ -4,10 +4,21 @@ from PIL import Image
 import os
 import glob
 
-def yolo_plot_image_and_bbox(project_path, image_name, class_id_to_name):
+def yolo_plot_image_and_bbox(project_path, parent_dir_name, image_name, class_id_to_name):
+    base_name = image_name.rsplit('.', 1)[0]
+    ext = image_name.rsplit('.', 1)[1]
+
     # Fungsi untuk membaca file YOLO
-    txt_path = glob.glob(os.path.join(project_path, '**', image_name + '.txt'), recursive=True)[0]
-    image_path = glob.glob(os.path.join(project_path, '**', image_name + '.jpg'), recursive=True)[0]
+    txt_path = glob.glob(os.path.join(project_path, parent_dir_name, '**', base_name + '.txt'), recursive=True)
+    image_path = glob.glob(os.path.join(project_path, parent_dir_name, '**', image_name), recursive=True)
+    
+    if txt_path or image_path:
+        txt_path = txt_path[0]
+        image_path = image_path[0]
+    else:
+        print(f"Files: \n{base_name}.txt not found in {parent_dir_name} dataset. \n{image_name} not found in {parent_dir_name} dataset.")
+        return
+    
     def parse_yolo_txt(txt_file):
         objects = []
         with open(txt_file, 'r') as f:
