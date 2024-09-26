@@ -9,8 +9,8 @@ def pascal_voc_plot_image_and_bbox(project_path, data_store_dir_name, image_name
     base_name = image_name.rsplit('.', 1)[0]
 
     # Fungsi untuk membaca XML Pascal VOC
-    xml_path = glob.glob(os.path.join(project_path, data_store_dir_name, base_name + '.xml'), recursive=True)[0]
-    image_path = glob.glob(os.path.join(project_path, data_store_dir_name, image_name), recursive=True)[0]
+    xml_path = glob.glob(os.path.join(project_path, data_store_dir_name, "**", base_name + '.xml'), recursive=True)[0]
+    image_path = glob.glob(os.path.join(project_path, data_store_dir_name, "**", image_name), recursive=True)[0]
 
     def parse_voc_xml(xml_file):
         tree = ET.parse(xml_file)

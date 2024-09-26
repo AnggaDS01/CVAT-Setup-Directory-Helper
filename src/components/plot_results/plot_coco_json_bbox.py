@@ -7,8 +7,8 @@ import json
 import glob
 
 
-def coco_json_plot_image_and_bbox(project_path, coco_json_filename, target_image_name):
-    coco_json_path = glob.glob(os.path.join(project_path, '**', coco_json_filename), recursive=True)[0]
+def coco_json_plot_image_and_bbox(project_path, data_store_dir_name, target_image_name):
+    coco_json_path = glob.glob(os.path.join(project_path, data_store_dir_name, '**', '*.json'), recursive=True)[0]
     images_dir = Path(coco_json_path).parent
 
     with open(coco_json_path, 'r') as file:

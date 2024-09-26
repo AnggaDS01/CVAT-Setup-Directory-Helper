@@ -27,13 +27,13 @@ from src.constants import *
 #     ext=EXT
 # )
 
-coco_json_process_video_pipeline(
-    project_path=PROJECT_PATH, 
-    coco_json_filename=FILE_NAMES, 
-    video_path=VIDEO_PATH, 
-    split_ratio=SPLIT_RATIO,
-    random_split=RANDOM_SPLIT, 
-    is_split=IS_SPLIT, 
-    seed=SEED,
-    ext=EXT
-)
+# coco_json_process_video_pipeline(
+#     project_path=PROJECT_PATH, 
+#     coco_json_filename=FILE_NAMES, 
+#     video_path=VIDEO_PATH, 
+#     split_ratio=SPLIT_RATIO,
+#     random_split=RANDOM_SPLIT, 
+#     is_split=IS_SPLIT, 
+#     seed=SEED,
+#     ext=EXT
+# )
