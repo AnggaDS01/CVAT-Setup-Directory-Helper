@@ -3,39 +3,21 @@ for-CVAT-free-Convert-Video-to-Sequences
 ├── Data Zone
 │   └── Traffic Assets
 │       ├── 4K Video of Highway Traffic! (online-video-cutter.com).mp4
-│       └── traffic-YOLOv8
+│       └── traffic-pascalVOC
 │           └── train
-|           |   ├── images
-│           |   |   ├── frame_000000.jpg
-│           |   |   ├── frame_000001.jpg
-│           |   |   ├── .
-│           |   |   ├── .
-│           |   |   ├── .
-│           |   |   └── (frame ke n).jpg
-|           |   └── labels
-│           |       ├── frame_000000.txt
-│           |       ├── frame_000001.txt
-│           |       ├── .
-│           |       ├── .   
-│           |       ├── .
-│           |       └── (frame ke n).txt
-│           └── valid
-|           |   ├── images
-│           |   |   ├── frame_000300.jpg
-│           |   |   ├── frame_000301.jpg
-│           |   |   ├── .
-│           |   |   ├── .
-│           |   |   ├── .
-│           |   |   └── (frame ke n).jpg
-|           |   └── labels
-│           |       ├── frame_000300.txt
-│           |       ├── frame_000301.txt
-│           |       ├── .
-│           |       ├── .
-│           |       ├── .
-│           |       └── (frame ke n).txt
-|           ├── data.yaml
-|           └── train.txt
+│           |   ├── frame_000000.jpg
+│           |   ├── frame_000000.xml
+│           |   ├── .
+│           |   ├── (frame ke n).jpg
+│           |   └── (frame ke n).xml
+│           ├── valid
+│           |   ├── frame_000300.jpg
+│           |   ├── frame_000300.xml
+│           |   ├── .
+│           |   ├── (frame ke n).jpg
+│           |   └── (frame ke n).xml
+|           ├── default.txt
+|           └── labelmap.txt
 |   
 ├── demo.py
 ├── notebook

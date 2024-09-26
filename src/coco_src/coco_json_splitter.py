@@ -5,7 +5,7 @@ import shutil
 import glob
 from tqdm import tqdm
 
-def coco_json_split(project_path, coco_json_filename, split_ratio, random_split):
+def coco_json_split(project_path, coco_json_filename, split_ratio, random_split, seed):
     # Path ke file JSON COCO
     coco_json_path = glob.glob(os.path.join(project_path, '**', coco_json_filename), recursive=True)[0]
 
@@ -30,6 +30,7 @@ def coco_json_split(project_path, coco_json_filename, split_ratio, random_split)
 
     # Membagi dataset menjadi train dan valid
     if random_split:
+        random.seed(seed)
         random.shuffle(images)  # Splitting secara acak
     split_index = int(len(images) * split_ratio)
 

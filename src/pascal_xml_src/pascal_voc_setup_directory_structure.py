@@ -2,23 +2,23 @@ import os
 import shutil
 import glob
 
-def pascal_xml_setup_directory_structure(project_path, source_filename):
+def pascal_xml_setup_directory_structure(project_path, data_store_dir_name, source_filename):
     target_delete_folder_1 = 'Annotations'
     target_delete_folder_2 = 'ImageSets'
 
     # Membuat folder 'train' di dalam folder baru 'traffic-pascalVOC'
-    train_dir = os.path.join(project_path, 'train')
+    annotations_dir = os.path.join(project_path, data_store_dir_name)
     
-    if os.path.exists(train_dir):
-        print(f"Folder {train_dir} sudah dibuat.")
+    if os.path.exists(annotations_dir):
+        print(f"Folder {annotations_dir} sudah dibuat.")
         return
     
-    os.makedirs(train_dir, exist_ok=True)
+    os.makedirs(annotations_dir, exist_ok=True)
 
     # Pindahkan file .xml dari 'annotations/' ke 'train/'
     xml_files = glob.glob(os.path.join(project_path, "**", '*.xml'), recursive=True)
     for xml_file in xml_files:
-        shutil.move(xml_file, train_dir)
+        shutil.move(xml_file, annotations_dir)
 
     # Pindahkan 'default.txt' dari 'ImageSets/Main/' ke direktori utama 'traffic-pascalVOC'
     file_names_path = glob.glob(os.path.join(project_path, "**", source_filename), recursive=True)[0]

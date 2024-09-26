@@ -4,8 +4,8 @@ from tqdm import tqdm
 import glob
 import os
 
-def update_xml_files(project_path, new_extension):
-    xml_files = glob.glob(os.path.join(project_path, "**", '*.xml'), recursive=True)
+def update_xml_files(project_path, data_store_dir, new_extension):
+    xml_files = glob.glob(os.path.join(project_path, data_store_dir, '*.xml'), recursive=True)
 
     # Loop dengan progress bar menggunakan tqdm
     modified_files = 0

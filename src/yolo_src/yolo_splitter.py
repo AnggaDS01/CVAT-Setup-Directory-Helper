@@ -4,7 +4,7 @@ import shutil
 from pathlib import Path
 from tqdm import tqdm
 
-def yolo_split(project_path, data_store_dir, train_dir_name, valid_dir_name, images_dir_name, labels_dir_name, split_ratio=0.8, random_split=True, ext='jpg'):
+def yolo_split(project_path, data_store_dir, train_dir_name, valid_dir_name, images_dir_name, labels_dir_name, split_ratio=0.8, random_split=True, seed=42, ext='jpg'):
     # Path ke folder images dan labels
     images_dir = os.path.join(project_path, data_store_dir, images_dir_name)
     labels_dir = os.path.join(project_path, data_store_dir, labels_dir_name)
@@ -39,6 +39,7 @@ def yolo_split(project_path, data_store_dir, train_dir_name, valid_dir_name, ima
 
     # Pilih splitting secara acak atau berurutan
     if random_split:
+        random.seed(seed)
         combined = list(zip(image_files, label_files))
         random.shuffle(combined)  # Splitting secara acak
         image_files, label_files = zip(*combined)

@@ -3,9 +3,10 @@ import os
 
 GRANDPARENT_NAME = 'Data Zone' # Put your data in this folder
 PARENT_NAME = 'Traffic Assets' # Change this
-PROJECT_NAME = 'traffic-pascalVOC' # Change this
+PROJECT_NAME = 'traffic-Pascal-Voc' # Change this
 BASE_DIR = os.path.join(GRANDPARENT_NAME, PARENT_NAME)
 PROJECT_PATH = os.path.join(BASE_DIR, PROJECT_NAME)
-IMAGE_NAME = 'frame_000240'
+PARENT_DIR_NAME = 'valid'
+IMAGE_NAME = 'frame_000003.jpg'
 
-pascal_voc_plot_image_and_bbox(PROJECT_PATH, IMAGE_NAME)
+pascal_voc_plot_image_and_bbox(PROJECT_PATH, PARENT_DIR_NAME, IMAGE_NAME)

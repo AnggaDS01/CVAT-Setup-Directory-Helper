@@ -16,5 +16,5 @@ PROJECT_PATH = os.path.join(BASE_DIR, PROJECT_NAME)
 VIDEO_PATH = os.path.join(BASE_DIR, VIDEO_NAME)
 
 yolo_process_video_pipeline(PROJECT_PATH, FILE_NAMES, VIDEO_PATH, PROJECT_NAME, split_ratio=0.8, random_split=True, is_split=True)
-# xml_process_video_pipeline(PROJECT_PATH, VIDEO_PATH, FILE_NAMES)
+# xml_process_video_pipeline(PROJECT_PATH, FILE_NAMES, VIDEO_PATH, split_ratio=0.8, random_split=True, is_split=True)
 # coco_json_process_video_pipeline(PROJECT_PATH, FILE_NAMES, VIDEO_PATH, is_split=True, random_split=True, split_ratio=0.9)

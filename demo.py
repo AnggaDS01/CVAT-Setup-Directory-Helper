@@ -1,26 +1,3 @@
-from src.yolo_src.yolo_splitter import split_yolo_dataset
-import os
-
-GRANDPARENT_NAME = 'Data Zone' # Put your data in this folder
-PARENT_NAME = 'Traffic Assets' # Change this
-PROJECT_NAME = 'traffic-YOLOv8' # Change this
-VIDEO_NAME = '4K Video of Highway Traffic! (online-video-cutter.com).mp4' # Change this
-
-BASE_DIR = os.path.join(GRANDPARENT_NAME, PARENT_NAME)
-PROJECT_PATH = os.path.join(BASE_DIR, PROJECT_NAME)
-VIDEO_PATH = os.path.join(BASE_DIR, VIDEO_NAME)
-
-# Contoh penggunaan:
-split_ratio = 0.8  # 80% untuk train, 20% untuk valid
-random_split = True  # Ubah ke False jika ingin membagi secara berurutan
-
-split_yolo_dataset(PROJECT_PATH, split_ratio=split_ratio, random_split=random_split)
-
-
-
-
-
-
 # import os
 # import json
 
