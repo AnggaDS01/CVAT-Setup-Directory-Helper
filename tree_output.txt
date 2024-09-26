@@ -1,32 +1,37 @@
 for-CVAT-free-Convert-Video-to-Sequences
 ├── .gitignore
 ├── Data Zone
+│   ├── Fruit-Assets
 │   └── Traffic Assets
 │       ├── 4K Video of Highway Traffic! (online-video-cutter.com).mp4
-│       └── traffic-pascalVOC
-│           └── train
-│           |   ├── frame_000000.jpg
-│           |   ├── frame_000000.xml
-│           |   ├── .
-│           |   ├── (frame ke n).jpg
-│           |   └── (frame ke n).xml
-│           ├── valid
-│           |   ├── frame_000300.jpg
-│           |   ├── frame_000300.xml
-│           |   ├── .
-│           |   ├── (frame ke n).jpg
-│           |   └── (frame ke n).xml
-|           ├── default.txt
-|           └── labelmap.txt
-|   
+│       ├── traffic-COCO
+│       │   ├── annotations
+│       │   ├── train
+│       │   └── valid
+│       ├── traffic-Pascal-Voc
+│       │   ├── default.txt
+│       │   ├── labelmap.txt
+│       │   ├── train
+│       │   └── valid
+│       └── traffic-YOLOv8
+│           ├── data.yaml
+│           ├── train
+│           ├── train.txt
+│           └── valid
 ├── demo.py
 ├── notebook
 │   └── experiments.ipynb
 ├── pipeline
-│   ├── json_video_to_sequence_pipeline.py
-│   ├── xml_video_to_sequence_pipeline.py
+│   ├── coco_json_video_to_sequence_pipeline.py
+│   ├── pacal_voc_xml_video_to_sequence_pipeline.py
 │   ├── yolo_video_to_sequence_pipeline.py
-|   └── __pycache__
+│   └── __pycache__
+│       ├── coco_json_video_to_sequence_pipeline.cpython-39.pyc
+│       ├── json_video_to_sequence_pipeline.cpython-39.pyc
+│       ├── pacal_voc_xml_video_to_sequence_pipeline.cpython-39.pyc
+│       ├── video_to_sequences_pipeline.cpython-39.pyc
+│       ├── xml_video_to_sequence_pipeline.cpython-39.pyc
+│       └── yolo_video_to_sequence_pipeline.cpython-39.pyc
 ├── requirements.txt
 ├── run_pipeline.py
 ├── run_plot_results
@@ -34,28 +39,56 @@ for-CVAT-free-Convert-Video-to-Sequences
 │   ├── plot_pascal_voc_bbox_result.py
 │   └── plot_yolo_bbox_result.py
 ├── setup.py
-└── src
-    ├── coco_src
-    │   ├── coco_output_setup_directory_structure.py
-    │   ├── modify_json_file.py
-    │   └── __pycache__
-    ├── get_file_names_from_txt.py
-    ├── pascal_xml_src
-    │   ├── modify_xml_file.py
-    │   ├── update_xml.py
-    │   ├── xml_output_setup_directory_structure.py
-    │   └── __pycache__
-    ├── plot_results
-    │   ├── plot_coco_json_bbox.py
-    │   ├── plot_pascal_voc_bbox.py
-    │   ├── plot_yolo_bbox.py
-    │   └── __pycache__
-    ├── video_to_frames.py
-    ├── yolo_src
-    │   ├── extract_classes_from_data_yaml.py
-    │   ├── setup_directory_structure.py
-    │   ├── update_yaml.py
-    │   └── __pycache__
-    └── __pycache__
-        ├── get_file_names_from_txt.cpython-39.pyc
-        └── video_to_frames.cpython-39.pyc
+├── src
+│   ├── coco_src
+│   │   ├── coco_json_splitter.py
+│   │   ├── modify_json_file.py
+│   │   └── __pycache__
+│   │       ├── coco_json_splitter.cpython-39.pyc
+│   │       ├── coco_output_setup_directory_structure.cpython-39.pyc
+│   │       └── modify_json_file.cpython-39.pyc
+│   ├── get_file_names_from_txt.py
+│   ├── pascal_xml_src
+│   │   ├── modify_xml_file.py
+│   │   ├── pascal_voc_setup_directory_structure.py
+│   │   ├── pascal_voc_splitter.py
+│   │   ├── update_xml.py
+│   │   └── __pycache__
+│   │       ├── modify_xml_file.cpython-39.pyc
+│   │       ├── pascal_voc_setup_directory_structure.cpython-39.pyc
+│   │       ├── pascal_voc_splitter.cpython-39.pyc
+│   │       ├── setup_directory_structure_xml_output.cpython-39.pyc
+│   │       ├── update_xml.cpython-39.pyc
+│   │       └── xml_output_setup_directory_structure.cpython-39.pyc
+│   ├── plot_results
+│   │   ├── plot_coco_json_bbox.py
+│   │   ├── plot_pascal_voc_bbox.py
+│   │   ├── plot_yolo_bbox.py
+│   │   └── __pycache__
+│   │       ├── plot_coco_json_bbox.cpython-39.pyc
+│   │       ├── plot_json_bbox.cpython-39.pyc
+│   │       ├── plot_pascal_voc.cpython-39.pyc
+│   │       ├── plot_pascal_voc_bbox.cpython-39.pyc
+│   │       └── plot_yolo_bbox.cpython-39.pyc
+│   ├── video_to_frames.py
+│   ├── yolo_src
+│   │   ├── extract_classes_from_data_yaml.py
+│   │   ├── update_yaml.py
+│   │   ├── yolo_setup_directory_structure.py
+│   │   ├── yolo_splitter.py
+│   │   └── __pycache__
+│   │       ├── extract_classes_from_data_yaml.cpython-39.pyc
+│   │       ├── get_file_names_from_txt.cpython-39.pyc
+│   │       ├── setup_directory_structure.cpython-39.pyc
+│   │       ├── update_yaml.cpython-39.pyc
+│   │       ├── video_to_frames.cpython-39.pyc
+│   │       ├── yolo_setup_directory_structure.cpython-39.pyc
+│   │       └── yolo_splitter.cpython-39.pyc
+│   └── __pycache__
+│       ├── get_file_names_from_txt.cpython-39.pyc
+│       └── video_to_frames.cpython-39.pyc
+├── tree.py
+├── tree_output.txt
+└── venv
+
+349 directories, 604 files

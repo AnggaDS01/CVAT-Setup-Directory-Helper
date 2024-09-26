@@ -5,13 +5,21 @@ import shutil
 import glob
 from tqdm import tqdm
 
-def coco_json_split(project_path, coco_json_filename, split_ratio, random_split, seed):
+def coco_json_split(
+        project_path,
+        coco_json_filename,
+        train_dir_name,
+        valid_dir_name,
+        split_ratio,
+        random_split,
+        seed
+    ):
     # Path ke file JSON COCO
     coco_json_path = glob.glob(os.path.join(project_path, '**', coco_json_filename), recursive=True)[0]
 
     # Path ke folder output train dan valid
-    train_dir = os.path.join(project_path, 'train')
-    valid_dir = os.path.join(project_path, 'valid')
+    train_dir = os.path.join(project_path, train_dir_name)
+    valid_dir = os.path.join(project_path, valid_dir_name)
 
     if os.path.exists(train_dir) or os.path.exists(valid_dir):
         print(f"Folder:\n 1. {train_dir} \n 2. {valid_dir} \nsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.")

@@ -1,10 +1,18 @@
-from src.yolo_src.extract_classes_from_data_yaml import extract_classes_from_data_yaml
+from src.components.yolo_src.extract_classes_from_data_yaml import extract_classes_from_data_yaml
 
 import os
 import yaml
 
 # Fungsi untuk memperbarui data.yaml ke format YOLOv8
-def update_data_yaml(base_dir, project_name, data_store_dir, train_dir_name, valid_dir_name, images_dir):
+def update_data_yaml(
+        base_dir, 
+        project_name, 
+        data_store_dir, 
+        train_dir_name, 
+        valid_dir_name, 
+        images_dir
+    ):
+    
     old_data_yaml_path = os.path.join(base_dir, 'data.yaml')
     
     # Baca kelas dari data.yaml yang sudah ada

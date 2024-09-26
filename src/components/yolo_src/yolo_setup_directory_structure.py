@@ -2,7 +2,13 @@ import os
 import shutil
 
 # Fungsi untuk membuat folder baru dan memindahkan file
-def setup_directory_structure(project_path, data_store_dir_name, images_dir_name, labels_dir_name):
+def setup_directory_structure(
+        project_path, 
+        data_store_dir_name, 
+        images_dir_name, 
+        labels_dir_name
+    ):
+    
     annotations_dir = os.path.join(project_path, data_store_dir_name)
     
     if os.path.exists(annotations_dir):

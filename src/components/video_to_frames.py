@@ -4,7 +4,13 @@ import os
 import re
 
 # Fungsi untuk mengubah video menjadi sequence frames
-def video_to_frames(video_path, output_dir, total_frames, file_names_list, ext='jpg'):
+def video_to_frames(
+        video_path, 
+        output_dir, 
+        total_frames, 
+        file_names_list, 
+        ext
+    ):
 
     # Check if output_dir contains any image files
     image_extensions = re.compile(r'\.(png|jpe?g|webp|gif|bmp|tiff|heic)$', re.IGNORECASE)

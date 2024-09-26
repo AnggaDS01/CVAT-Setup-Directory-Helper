@@ -1,10 +1,15 @@
-from src.pascal_xml_src.modify_xml_file import modify_xml_file
+from src.components.pascal_xml_src.modify_xml_file import modify_xml_file
 from tqdm import tqdm
 
 import glob
 import os
 
-def update_xml_files(project_path, data_store_dir, new_extension):
+def update_xml_files(
+        project_path, 
+        data_store_dir, 
+        new_extension
+    ):
+    
     xml_files = glob.glob(os.path.join(project_path, data_store_dir, '*.xml'), recursive=True)
 
     # Loop dengan progress bar menggunakan tqdm

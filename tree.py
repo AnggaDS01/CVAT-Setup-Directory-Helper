@@ -60,4 +60,4 @@ if __name__ == '__main__':
     parent_path = Path(os.getcwd())
     name_parent_path = str(parent_path).split(os.path.sep)
     output_txt = 'tree_output.txt'  # File name for the output
-    tree(parent_path.parent / name_parent_path[-1], level=3, output_file=output_txt)
+    tree(parent_path.parent / name_parent_path[-1], level=4, output_file=output_txt)

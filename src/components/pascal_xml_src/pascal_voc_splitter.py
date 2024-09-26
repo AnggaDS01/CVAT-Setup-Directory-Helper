@@ -3,7 +3,16 @@ import shutil
 import random
 from tqdm import tqdm
 
-def pascal_voc_split(project_path, data_store_dir, train_dir_name, valid_dir_name,train_ratio=0.8, random_split=True, seed=42, ext='jpg'):
+def pascal_voc_split(
+        project_path, 
+        data_store_dir, 
+        train_dir_name, 
+        valid_dir_name,
+        split_ratio, 
+        random_split, 
+        seed, 
+        ext
+    ):
 
     annotations_dir = os.path.join(project_path, data_store_dir)
 

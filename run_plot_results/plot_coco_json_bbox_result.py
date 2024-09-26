@@ -1,4 +1,4 @@
-from src.plot_results.plot_coco_json_bbox import coco_json_plot_image_and_bbox
+from src.components.plot_results.plot_coco_json_bbox import coco_json_plot_image_and_bbox
 
 import glob
 import random

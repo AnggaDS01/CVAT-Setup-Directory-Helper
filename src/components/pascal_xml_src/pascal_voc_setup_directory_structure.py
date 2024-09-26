@@ -2,7 +2,12 @@ import os
 import shutil
 import glob
 
-def pascal_xml_setup_directory_structure(project_path, data_store_dir_name, source_filename):
+def pascal_xml_setup_directory_structure(
+        project_path, 
+        data_store_dir_name, 
+        source_filename
+    ):
+    
     target_delete_folder_1 = 'Annotations'
     target_delete_folder_2 = 'ImageSets'
 
