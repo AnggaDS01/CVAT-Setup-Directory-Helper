@@ -6,6 +6,17 @@ import os
 import glob
 
 def pascal_voc_plot_image_and_bbox(project_path, data_store_dir_name, image_name):
+    """
+    Plots an image with bounding boxes and labels from a Pascal VOC XML file.
+
+    Parameters:
+        project_path (str): The path to the project directory.
+        data_store_dir_name (str): The name of the directory where the image and XML file are stored.
+        image_name (str): The name of the image file.
+
+    Returns:
+        None
+    """
     base_name = image_name.rsplit('.', 1)[0]
 
     # Fungsi untuk membaca XML Pascal VOC

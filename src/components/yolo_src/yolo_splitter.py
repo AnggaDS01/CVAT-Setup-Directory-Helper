@@ -1,6 +1,7 @@
 import os
 import random
 import shutil
+import inspect
 from pathlib import Path
 from tqdm import tqdm
 
@@ -16,6 +17,32 @@ def yolo_split(
         seed, 
         ext
     ):
+    """
+    Splits a dataset of images and labels into training and validation sets.
+
+    Parameters:
+        project_path (str): The path to the project directory.
+        data_store_dir (str): The directory where the images and labels are stored.
+        train_dir_name (str): The name of the directory where the training data will be stored.
+        valid_dir_name (str): The name of the directory where the validation data will be stored.
+        images_dir_name (str): The name of the directory where the images are stored.
+        labels_dir_name (str): The name of the directory where the labels are stored.
+        split_ratio (float): The ratio of data to be used for training.
+        random_split (bool): Whether to split the data randomly or sequentially.
+        seed (int): The seed for random splitting.
+        ext (str): The file extension of the images.
+
+    Returns:
+        None
+    """
+
+    # Mendapatkan nama fungsi secara dinamis
+    function_name = inspect.currentframe().f_code.co_name
+    
+    # Mendapatkan nama file yang berisi fungsi ini
+    file_name_function = inspect.getfile(inspect.currentframe())
+
+    print(f'\nRunning {function_name} di file {file_name_function}...')
 
     # Path ke folder images dan labels
     images_dir = os.path.join(project_path, data_store_dir, images_dir_name)
@@ -28,7 +55,7 @@ def yolo_split(
     valid_labels_dir = os.path.join(project_path, valid_dir_name, labels_dir_name)
 
     if os.path.exists(train_images_dir) or os.path.exists(valid_images_dir):
-        print(f"Folder:\n 1. {Path(train_images_dir).parent} \n 2. {Path(valid_images_dir).parent} \nsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.")
+        print(f"\tFolder:\n \t\t1. {Path(train_images_dir).parent} \n \t\t2. {Path(valid_images_dir).parent} \n\tsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.\n\n")
         return
     
     # Buat folder train dan valid jika belum ada
@@ -63,14 +90,15 @@ def yolo_split(
     train_images, valid_images = image_files[:split_index], image_files[split_index:]
     train_labels, valid_labels = label_files[:split_index], label_files[split_index:]
 
-    # Copy file gambar dan label ke folder train
-    for img_file, lbl_file in tqdm(zip(train_images, train_labels), total=len(train_images), desc="Copying train files"):
-        shutil.copyfile(os.path.join(images_dir, img_file), os.path.join(train_images_dir, img_file))
-        shutil.copyfile(os.path.join(labels_dir, lbl_file), os.path.join(train_labels_dir, lbl_file))
+    def copy_files(images_list, labels_list, target_images_dir, target_labels_dir, target_dir_name):
+        # Copy file gambar dan label ke folder train
+        for img_file, lbl_file in tqdm(zip(images_list, labels_list), desc=f"Copying {target_dir_name} files", total=len(images_list)):
+            # Copy gambar
+            shutil.copyfile(os.path.join(images_dir, img_file), os.path.join(target_images_dir, img_file))
+            # Copy label
+            shutil.copyfile(os.path.join(labels_dir, lbl_file), os.path.join(target_labels_dir, lbl_file))
 
-    # Copy file gambar dan label ke folder valid
-    for img_file, lbl_file in tqdm(zip(valid_images, valid_labels), total=len(valid_images), desc="Copying valid files"):
-        shutil.copyfile(os.path.join(images_dir, img_file), os.path.join(valid_images_dir, img_file))
-        shutil.copyfile(os.path.join(labels_dir, lbl_file), os.path.join(valid_labels_dir, lbl_file))
+    copy_files(train_images, train_labels, train_images_dir, train_labels_dir, train_dir_name)
+    copy_files(valid_images, valid_labels, valid_images_dir, valid_labels_dir, valid_dir_name)
 
-    print(f"Splitting selesai. Data train: {len(train_images)} gambar, Data valid: {len(valid_images)} gambar.")
+    print(f"\tSplitting selesai. Data train: {len(train_images)} gambar, Data valid: {len(valid_images)} gambar.\n\n")

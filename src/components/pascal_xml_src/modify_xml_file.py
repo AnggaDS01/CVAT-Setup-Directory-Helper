@@ -1,6 +1,16 @@
 import xml.etree.ElementTree as ET
 
 def modify_xml_file(xml_path, new_extension):
+    """
+    Modifies an XML file by changing the file extension of the <filename> element.
+
+    Args:
+        xml_path (str): The path to the XML file to be modified.
+        new_extension (str): The new file extension to be applied.
+
+    Returns:
+        bool: True if the modification was successful, False if the file extension was already correct.
+    """
     # Parse XML file
     tree = ET.parse(xml_path)
     root = tree.getroot()

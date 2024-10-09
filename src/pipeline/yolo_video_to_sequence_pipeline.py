@@ -19,6 +19,23 @@ def yolo_process_video_pipeline(
         is_split, 
         ext
     ):
+    """
+    Processes a video pipeline using YOLO.
+
+    Args:
+        project_path (str): The path to the project directory.
+        source_filename (str): The filename of the source file.
+        video_path (str): The path to the video file.
+        project_name (str): The name of the project.
+        split_ratio (float): The ratio of data to be used for training.
+        random_split (bool): Whether to split the data randomly or sequentially.
+        seed (int): The seed for random splitting.
+        is_split (bool): Whether to split the dataset.
+        ext (str): The file extension.
+
+    Returns:
+        None
+    """
 
     DATA_STORE_DIR_NAME = 'annotations'
     TRAIN_DIR_NAME = 'train'
@@ -42,6 +59,7 @@ def yolo_process_video_pipeline(
     output_dir = os.path.join(project_path, DATA_STORE_DIR_NAME, IMAGES_DIR_NAME)
     total_frames = len(file_names_list)
     video_to_frames(
+        project_path=project_path,
         video_path=video_path, 
         output_dir=output_dir, 
         total_frames=total_frames, 
@@ -74,4 +92,4 @@ def yolo_process_video_pipeline(
             ext=ext
         )
     else:
-        print("Skipping splitting dataset...")
+        print("\nSkipping splitting dataset...\n\n")

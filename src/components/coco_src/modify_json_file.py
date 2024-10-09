@@ -1,7 +1,26 @@
 import json
+import inspect
 from tqdm import tqdm
 
 def modify_json_file(json_path, new_extension):
+    """
+    Modifies a JSON file by changing the file extension of all image files.
+
+    Args:
+        json_path (str): The path to the JSON file to be modified.
+        new_extension (str): The new file extension to be applied to all image files.
+
+    Returns:
+        list: A list of file names without extensions.
+    """
+    # Mendapatkan nama fungsi secara dinamis
+    function_name = inspect.currentframe().f_code.co_name
+    
+    # Mendapatkan nama file yang berisi fungsi ini
+    file_name_function = inspect.getfile(inspect.currentframe())
+
+    print(f'\n\nRunning {function_name} di file {file_name_function}...')
+
     with open(json_path, 'r') as file:
         data = json.load(file)
 
@@ -26,8 +45,8 @@ def modify_json_file(json_path, new_extension):
     if changed:
         with open(json_path, 'w') as f:
             json.dump(data, f, indent=4)
-        print("File JSON telah diperbarui.")
+        print("\tFile JSON telah diperbarui.")
     else:
-        print("Tidak ada perubahan pada file JSON.")
+        print("\tTidak ada perubahan pada file JSON.")
 
     return file_names_list

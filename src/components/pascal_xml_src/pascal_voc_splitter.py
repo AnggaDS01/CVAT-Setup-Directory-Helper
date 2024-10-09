@@ -1,7 +1,9 @@
 import os
 import shutil
 import random
+import inspect
 from tqdm import tqdm
+from pathlib import Path
 
 def pascal_voc_split(
         project_path, 
@@ -13,6 +15,30 @@ def pascal_voc_split(
         seed, 
         ext
     ):
+    """
+    Splits a dataset of images and annotations into training and validation sets.
+
+    Parameters:
+        project_path (str): The path to the project directory.
+        data_store_dir (str): The directory where the images and annotations are stored.
+        train_dir_name (str): The name of the directory where the training data will be stored.
+        valid_dir_name (str): The name of the directory where the validation data will be stored.
+        split_ratio (float): The ratio of data to be used for training.
+        random_split (bool): Whether to split the data randomly or sequentially.
+        seed (int): The seed for random splitting.
+        ext (str): The file extension of the images.
+
+    Returns:
+        None
+    """
+
+    # Mendapatkan nama fungsi secara dinamis
+    function_name = inspect.currentframe().f_code.co_name
+    
+    # Mendapatkan nama file yang berisi fungsi ini
+    file_name_function = inspect.getfile(inspect.currentframe())
+
+    print(f'\nRunning {function_name} di file {file_name_function}...')
 
     annotations_dir = os.path.join(project_path, data_store_dir)
 
@@ -21,7 +47,7 @@ def pascal_voc_split(
     valid_dir = os.path.join(project_path, valid_dir_name)
 
     if os.path.exists(train_dir) or os.path.exists(valid_dir):
-        print(f"Folder:\n 1. {train_dir} \n 2. {valid_dir} \nsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.")
+        print(f"\tFolder:\n \t\t1. {Path(train_dir).parent} \n \t\t2. {Path(valid_dir).parent} \n\tsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.\n\n")
         return
 
     os.makedirs(train_dir, exist_ok=True)
@@ -36,7 +62,7 @@ def pascal_voc_split(
         random.shuffle(files)
 
     # Tentukan jumlah file untuk training
-    num_train = int(len(files) * train_ratio)
+    num_train = int(len(files) * split_ratio)
 
     # Bagi file menjadi train dan valid
     train_files = files[:num_train]
@@ -57,4 +83,4 @@ def pascal_voc_split(
     copy_files(train_files, train_dir, train_dir_name)
     copy_files(valid_files, valid_dir, valid_dir_name)
 
-    print(f"Dataset berhasil dibagi: {len(train_files)} untuk train dan {len(valid_files)} untuk validasi.")
+    print(f"\tSplitting selesai. Data train: {len(train_files)} gambar, Data valid: {len(valid_files)} gambar.\n\n")

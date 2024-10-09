@@ -8,6 +8,17 @@ import glob
 
 
 def coco_json_plot_image_and_bbox(project_path, data_store_dir_name, target_image_name):
+    """
+    Plots an image from a COCO JSON file along with its bounding boxes and corresponding class labels.
+
+    Args:
+        project_path (str): The path to the project directory.
+        data_store_dir_name (str): The name of the directory containing the COCO JSON data.
+        target_image_name (str): The name of the image to be plotted.
+
+    Returns:
+        None
+    """
     coco_json_path = glob.glob(os.path.join(project_path, data_store_dir_name, '**', '*.json'), recursive=True)[0]
     images_dir = Path(coco_json_path).parent
 

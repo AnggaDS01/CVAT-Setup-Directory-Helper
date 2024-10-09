@@ -5,6 +5,18 @@ import os
 import glob
 
 def yolo_plot_image_and_bbox(project_path, parent_dir_name, image_name, class_id_to_name):
+    """
+    Plots a YOLO bounding box on an image.
+
+    Args:
+        project_path (str): The path to the project directory.
+        parent_dir_name (str): The name of the parent directory containing the image and YOLO file.
+        image_name (str): The name of the image file.
+        class_id_to_name (dict): A dictionary mapping class IDs to their corresponding names.
+
+    Returns:
+        None
+    """
     base_name = image_name.rsplit('.', 1)[0]
     ext = image_name.rsplit('.', 1)[1]
 

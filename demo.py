@@ -48,3 +48,9 @@
 # print(coco_data['categories'] == valid_coco_data['categories'])
 
 # print('\n\n')
+
+
+if []:
+    print(True)
+else:
+    print(False)

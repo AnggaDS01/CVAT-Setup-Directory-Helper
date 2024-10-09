@@ -3,7 +3,9 @@ import json
 import random
 import shutil
 import glob
+import inspect
 from tqdm import tqdm
+from pathlib import Path
 
 def coco_json_split(
         project_path,
@@ -14,6 +16,30 @@ def coco_json_split(
         random_split,
         seed
     ):
+    """
+    Splits a COCO JSON file into training and validation sets.
+
+    Parameters:
+        project_path (str): The path to the project directory.
+        coco_json_filename (str): The filename of the COCO JSON file.
+        train_dir_name (str): The name of the directory where the training data will be stored.
+        valid_dir_name (str): The name of the directory where the validation data will be stored.
+        split_ratio (float): The ratio of data to be used for training.
+        random_split (bool): Whether to split the data randomly or sequentially.
+        seed (int): The seed for random splitting.
+
+    Returns:
+        None
+    """
+
+    # Mendapatkan nama fungsi secara dinamis
+    function_name = inspect.currentframe().f_code.co_name
+    
+    # Mendapatkan nama file yang berisi fungsi ini
+    file_name_function = inspect.getfile(inspect.currentframe())
+
+    print(f'\nRunning {function_name} di file {file_name_function}...')
+
     # Path ke file JSON COCO
     coco_json_path = glob.glob(os.path.join(project_path, '**', coco_json_filename), recursive=True)[0]
 
@@ -22,7 +48,7 @@ def coco_json_split(
     valid_dir = os.path.join(project_path, valid_dir_name)
 
     if os.path.exists(train_dir) or os.path.exists(valid_dir):
-        print(f"Folder:\n 1. {train_dir} \n 2. {valid_dir} \nsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.")
+        print(f"\tFolder:\n \t\t1. {Path(train_dir).parent} \n \t\t2. {Path(valid_dir).parent} \n\tsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.\n\n")
         return
 
     # Buat folder train dan valid jika belum ada
@@ -91,4 +117,4 @@ def coco_json_split(
     with open(valid_json_path, 'w') as f:
         json.dump(valid_data, f, indent=4)
 
-    print(f"Splitting selesai. Data train: {len(train_images)} gambar, Data valid: {len(valid_images)} gambar.")
+    print(f"\tSplitting selesai. Data train: {len(train_images)} gambar, Data valid: {len(valid_images)} gambar.\n\n")
