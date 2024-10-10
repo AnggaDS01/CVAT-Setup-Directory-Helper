@@ -163,3 +163,4 @@ cython_debug/
 
 Video_to_Frames_Extractor.egg-info
 Data Zone/*
+main.txt

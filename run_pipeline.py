@@ -13,6 +13,7 @@ yolo_process_video_pipeline(
     random_split=RANDOM_SPLIT,
     seed=SEED,
     is_split=IS_SPLIT,
+    is_video_path=IS_VIDEO_PATH,
     ext=EXT
 )
 

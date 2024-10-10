@@ -16,7 +16,8 @@ def yolo_process_video_pipeline(
         split_ratio, 
         random_split,
         seed, 
-        is_split, 
+        is_split,
+        is_video_path,
         ext
     ):
     """
@@ -56,16 +57,17 @@ def yolo_process_video_pipeline(
     file_names_list = get_file_names_from_txt(file_names_path)
     
     # 3. Ubah video menjadi sequence frames
-    output_dir = os.path.join(project_path, DATA_STORE_DIR_NAME, IMAGES_DIR_NAME)
-    total_frames = len(file_names_list)
-    video_to_frames(
-        project_path=project_path,
-        video_path=video_path, 
-        output_dir=output_dir, 
-        total_frames=total_frames, 
-        file_names_list=file_names_list, 
-        ext=ext
-    )
+    if is_video_path:
+        output_dir = os.path.join(project_path, DATA_STORE_DIR_NAME, IMAGES_DIR_NAME)
+        total_frames = len(file_names_list)
+        video_to_frames(
+            project_path=project_path,
+            video_path=video_path, 
+            output_dir=output_dir, 
+            total_frames=total_frames, 
+            file_names_list=file_names_list, 
+            ext=ext
+        )
 
     #4. Update data.yaml
     update_data_yaml(
