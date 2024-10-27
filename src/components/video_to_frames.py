@@ -1,4 +1,5 @@
 from src.components.get_file_list import get_first_n_files
+from src.components.display_function_name import display_function_name
 
 from tqdm import tqdm
 import os
@@ -28,11 +29,7 @@ def extract_frames_from_video(
     None
     """
 
-    # Mendapatkan nama fungsi secara dinamis
-    function_name = inspect.currentframe().f_code.co_name
-    # Mendapatkan nama file yang berisi fungsi ini
-    file_name_function = inspect.getfile(inspect.currentframe())
-    print(f'\nRunning {function_name} in {file_name_function}...')
+    display_function_name(inspect.currentframe())
     
     # Check if output directory exists, if not, create it
     if not os.path.exists(output_dir_path):

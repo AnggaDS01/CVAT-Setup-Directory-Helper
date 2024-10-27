@@ -32,7 +32,7 @@ def coco_pipeline_format_processor(
     
     # 2. setup directory structure
     coco_setup_directory_structure(
-        images_store_dir_path=ANNOTATED_TARGET_DIR_PATH,
+        input_images_dir=ANNOTATED_TARGET_DIR_PATH,
         is_video=bool(VIDEO_EXTENSIONS_PATTERN.search(str(source_path))),
         image_size=image_size
     )
