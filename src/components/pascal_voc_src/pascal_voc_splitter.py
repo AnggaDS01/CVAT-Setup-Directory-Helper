@@ -6,11 +6,11 @@ import os
 import inspect
 from pathlib import Path
 
-def coco_split_dataset(
+def pascal_voc_split_dataset(
     images_labels_dir_path,
     split_ratio,
     random_split,
-    seed 
+    seed
 ) -> None:
     
     display_function_name(inspect.currentframe())
@@ -69,5 +69,3 @@ def coco_split_dataset(
         val_ratio,
         test_ratio
     )
-
-    return

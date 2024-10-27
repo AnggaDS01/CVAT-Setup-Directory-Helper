@@ -7,13 +7,13 @@ from pathlib import Path
 
 # Pipeline for yolo
 def yolo_pipeline_format_processor(
-        source_path: Path=None, 
-        fps: int=30, 
-        images_ext: str='jpg', 
-        image_size: tuple=None, 
-        split_ratio=None, 
-        random_split: bool=True,
-        seed: int=42, 
+        source_path, 
+        fps, 
+        images_ext, 
+        image_size, 
+        split_ratio, 
+        random_split,
+        seed,
     ) -> None:
 
     ANNOTATED_TARGET_DIR_PATH = get_annotated_target_dir(source_path)

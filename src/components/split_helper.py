@@ -110,8 +110,8 @@ def display_info_split(
     number_of_test_files = os.listdir(test_images_dir)
     
     print(f"\t[INFO] Dataset split completed.")
-    print(f"\t\t[INFO] train ratio: {train_ratio}, {len(number_of_train_files)} files in train.")
-    print(f"\t\t[INFO] val ratio: {val_ratio}, {len(number_of_val_files)} files in val.")
-    print(f"\t\t[INFO] test ratio: {test_ratio}, {len(number_of_test_files)} files in test.\n")
+    print(f"\t\t[INFO] train ratio: {train_ratio}, {len(number_of_train_files)} files in {train_images_dir}.")
+    print(f"\t\t[INFO] val ratio: {val_ratio}, {len(number_of_val_files)} files in {val_images_dir}.")
+    print(f"\t\t[INFO] test ratio: {test_ratio}, {len(number_of_test_files)} files in {test_images_dir}.\n")
 
     return
