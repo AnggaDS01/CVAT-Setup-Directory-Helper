@@ -1,104 +1,149 @@
+from src.components.get_file_list import get_first_n_files
+from src.constants import *
+from functools import partial
+
 import os
 import random
-import shutil
 import inspect
 from pathlib import Path
-from tqdm import tqdm
+from shutil import move
 
-def yolo_split(
-        project_path, 
-        data_store_dir, 
-        train_dir_name, 
-        valid_dir_name, 
-        images_dir_name, 
-        labels_dir_name, 
-        split_ratio, 
-        random_split, 
-        seed, 
-        ext
-    ):
+# Fungsi untuk memindahkan file dengan pengecekan jika file sudah dipindahkan
+def move_file_with_check(image_file, image_dest, label_file, label_dest):
+    move(image_file, image_dest)
+    move(label_file, label_dest)
+
+def move_images_and_labels(image_file, label_dir, target_image_dir, target_label_dir):
     """
-    Splits a dataset of images and labels into training and validation sets.
+    Fungsi untuk memindahkan gambar dan label yang sesuai jika file label ada.
 
     Parameters:
-        project_path (str): The path to the project directory.
-        data_store_dir (str): The directory where the images and labels are stored.
-        train_dir_name (str): The name of the directory where the training data will be stored.
-        valid_dir_name (str): The name of the directory where the validation data will be stored.
-        images_dir_name (str): The name of the directory where the images are stored.
-        labels_dir_name (str): The name of the directory where the labels are stored.
-        split_ratio (float): The ratio of data to be used for training.
-        random_split (bool): Whether to split the data randomly or sequentially.
-        seed (int): The seed for random splitting.
-        ext (str): The file extension of the images.
+    - image_file (Path): Path ke file gambar.
+    - label_dir (Path): Direktori sumber untuk label.
+    - target_image_dir (Path): Direktori target untuk gambar.
+    - target_label_dir (Path): Direktori target untuk label.
+    """
+    label_file = label_dir / f"{image_file.stem}.txt"  # Label file dengan ekstensi .txt
+    if label_file.exists():
+        move_file_with_check(
+            image_file,
+            target_image_dir / image_file.name,
+            label_file,
+            target_label_dir / label_file.name
+        )
+    else:
+        print(f"\t[WARNING] Label file for '{image_file.name}' not found.")
+
+def batch_move_files(image_files, label_dir, target_image_dir, target_label_dir):
+    """
+    Batch memindahkan file gambar dan label menggunakan map untuk mempercepat proses.
+
+    Parameters:
+    - image_files (list of Path): Daftar file gambar yang akan diproses.
+    - label_dir (Path): Direktori sumber untuk label.
+    - target_image_dir (Path): Direktori target untuk gambar.
+    - target_label_dir (Path): Direktori target untuk label.
+    """
+    # Menggunakan partial untuk mengurangi argumen yang dikirim ke map
+    mover = partial(move_images_and_labels, label_dir=label_dir, target_image_dir=target_image_dir, target_label_dir=target_label_dir)
+    
+    # Proses semua file gambar dengan map
+    list(map(mover, image_files))
+
+def yolo_split_dataset(
+    images_labels_dir_path,
+    split_ratio,
+    random_split,
+    seed 
+) -> None:
+    """
+    Split for a YOLO dataset of images and labels into training, validation, and testing sets.
+
+    Parameters:
+        images_labels_dir_path (Path): The path to the directory where the images and labels are stored.
+        split_ratio (tuple): A tuple of two floats that sums to 1.0 (train, val) or None, but if you give it like (0.8, 0.1), it will automatically calculate the ratio for the test set.
+            to be used for training, validation, and testing, respectively. If None, no splitting is done.
+        random_split (bool): Whether to split the data randomly or sequentially. Defaults to True.
+        seed (int): The seed for random splitting. Defaults to 42.
 
     Returns:
         None
     """
-
     # Mendapatkan nama fungsi secara dinamis
     function_name = inspect.currentframe().f_code.co_name
-    
     # Mendapatkan nama file yang berisi fungsi ini
     file_name_function = inspect.getfile(inspect.currentframe())
+    print(f'\nRunning {function_name} in {file_name_function}...')
 
-    print(f'\nRunning {function_name} di file {file_name_function}...')
-
-    # Path ke folder images dan labels
-    images_dir = os.path.join(project_path, data_store_dir, images_dir_name)
-    labels_dir = os.path.join(project_path, data_store_dir, labels_dir_name)
-
-    # Path ke folder train dan valid
-    train_images_dir = os.path.join(project_path, train_dir_name, images_dir_name)
-    valid_images_dir = os.path.join(project_path, valid_dir_name, images_dir_name)
-    train_labels_dir = os.path.join(project_path, train_dir_name, labels_dir_name)
-    valid_labels_dir = os.path.join(project_path, valid_dir_name, labels_dir_name)
-
-    if os.path.exists(train_images_dir) or os.path.exists(valid_images_dir):
-        print(f"\tFolder:\n \t\t1. {Path(train_images_dir).parent} \n \t\t2. {Path(valid_images_dir).parent} \n\tsudah dibuat. Hapus folder tersebut jika ingin memulai ulang.\n\n")
+    if split_ratio is None:
+        print("\t[INFO] No splitting needed as split_ratio is set to None.\n")
         return
-    
-    # Buat folder train dan valid jika belum ada
-    os.makedirs(train_images_dir, exist_ok=True)
-    os.makedirs(valid_images_dir, exist_ok=True)
-    os.makedirs(train_labels_dir, exist_ok=True)
-    os.makedirs(valid_labels_dir, exist_ok=True)
 
-    # Pastikan folder images dan labels ada
-    if not os.path.exists(images_dir) or not os.path.exists(labels_dir):
-        raise FileNotFoundError("Folder images atau labels tidak ditemukan di path yang diberikan.")
+    train_images_dir = Path(os.path.join(images_labels_dir_path, TRAIN_DIR, IMAGES_DIR))
+    val_images_dir = Path(os.path.join(images_labels_dir_path, VALID_DIR, IMAGES_DIR))
+    test_images_dir = Path(os.path.join(images_labels_dir_path, TEST_DIR, IMAGES_DIR))
 
-    # Ambil daftar semua file gambar dan label
-    image_files = sorted([f for f in os.listdir(images_dir) if f.endswith(f'.{ext}')])
-    label_files = sorted([f for f in os.listdir(labels_dir) if f.endswith('.txt')])
+    train_labels_dir = Path(os.path.join(images_labels_dir_path, TRAIN_DIR, LABELS_DIR))
+    val_labels_dir = Path(os.path.join(images_labels_dir_path, VALID_DIR, LABELS_DIR))
+    test_labels_dir = Path(os.path.join(images_labels_dir_path, TEST_DIR, LABELS_DIR))
 
-    # Pastikan jumlah file gambar dan label sesuai
-    if len(image_files) != len(label_files):
-        raise ValueError("Jumlah file gambar dan label tidak sama.")
+    # Buat directory jika belum ada
+    for directory in [train_images_dir, val_images_dir, train_labels_dir, val_labels_dir]:
+        os.makedirs(directory, exist_ok=True)
+    if test_images_dir and test_labels_dir:
+        os.makedirs(test_images_dir, exist_ok=True)
+        os.makedirs(test_labels_dir, exist_ok=True)
 
-    # Pilih splitting secara acak atau berurutan
+    # Filter hanya file yang cocok dengan ekstensi gambar
+    image_files = [file for file in train_images_dir.glob("*.*") if IMAGE_EXTENSIONS_PATTERN.search(str(file))]
+
+    # Hitung ukuran split
+    train_ratio = split_ratio[0]
+    val_ratio = split_ratio[1]
+    test_ratio = round(max(1.0 - (split_ratio[0] + split_ratio[1]), 0), 4)
+    total_ratio = round(sum((train_ratio, val_ratio, test_ratio)), 2) 
+
+    train_size = int(round(len(image_files) * train_ratio, 0))
+    val_size = int(round(len(image_files) * val_ratio, 0))
+    test_size = int(round(len(image_files) * test_ratio, 0))
+    # print(train_size, val_size, test_size, sum((train_size, val_size, test_size)), total_ratio)
+
+    # Validasi jumlah split ratio
+    if total_ratio != 1.0:
+        raise ValueError("[ERROR] split_ratio must sum to 1.0.\n")
+
     if random_split:
         random.seed(seed)
-        combined = list(zip(image_files, label_files))
-        random.shuffle(combined)  # Splitting secara acak
-        image_files, label_files = zip(*combined)
+        random.shuffle(image_files)
 
-    # Tentukan indeks untuk splitting
-    split_index = int(len(image_files) * split_ratio)
+    train_files = image_files[:train_size]
+    val_files = image_files[train_size:] if round(test_size, 2) == 0.0 else image_files[train_size:train_size + val_size]
+    test_files = [] if round(test_size, 2) == 0.0 else image_files[train_size + val_size:]
+
+    images_valid_check = get_first_n_files(dir_path=val_images_dir, n=1)
+    if len(images_valid_check) == 0:
+        # Panggil fungsi untuk setiap kategori data
+        batch_move_files(train_files, train_labels_dir, train_images_dir, train_labels_dir)
+        batch_move_files(val_files, train_labels_dir, val_images_dir, val_labels_dir)
+        batch_move_files(test_files, train_labels_dir, test_images_dir, test_labels_dir)
+
+    else:
+        val_image_paths = val_images_dir.glob("*.*")
+        test_image_paths = test_images_dir.glob("*.*")
+        batch_move_files(val_image_paths, val_labels_dir, train_images_dir, train_labels_dir)
+        batch_move_files(test_image_paths, test_labels_dir, train_images_dir, train_labels_dir)
+
+        batch_move_files(train_files, train_labels_dir, train_images_dir, train_labels_dir)
+        batch_move_files(val_files, train_labels_dir, val_images_dir, val_labels_dir)
+        batch_move_files(test_files, train_labels_dir, test_images_dir, test_labels_dir)
+
+    number_of_train_files = os.listdir(train_images_dir)
+    number_of_val_files = os.listdir(val_images_dir)
+    number_of_test_files = os.listdir(test_images_dir)
     
-    # Membagi file gambar dan label menjadi train dan valid
-    train_images, valid_images = image_files[:split_index], image_files[split_index:]
-    train_labels, valid_labels = label_files[:split_index], label_files[split_index:]
+    print(f"\t[INFO] Dataset split completed.")
+    print(f"\t\t[INFO] train ratio: {train_ratio}, {len(number_of_train_files)} files in train.")
+    print(f"\t\t[INFO] val ratio: {val_ratio}, {len(number_of_val_files)} files in val.")
+    print(f"\t\t[INFO] test ratio: {test_ratio}, {len(number_of_test_files)} files in test.\n")
 
-    def copy_files(images_list, labels_list, target_images_dir, target_labels_dir, target_dir_name):
-        # Copy file gambar dan label ke folder train
-        for img_file, lbl_file in tqdm(zip(images_list, labels_list), desc=f"Copying {target_dir_name} files", total=len(images_list)):
-            # Copy gambar
-            shutil.copyfile(os.path.join(images_dir, img_file), os.path.join(target_images_dir, img_file))
-            # Copy label
-            shutil.copyfile(os.path.join(labels_dir, lbl_file), os.path.join(target_labels_dir, lbl_file))
-
-    copy_files(train_images, train_labels, train_images_dir, train_labels_dir, train_dir_name)
-    copy_files(valid_images, valid_labels, valid_images_dir, valid_labels_dir, valid_dir_name)
-
-    print(f"\tSplitting selesai. Data train: {len(train_images)} gambar, Data valid: {len(valid_images)} gambar.\n\n")
+    return

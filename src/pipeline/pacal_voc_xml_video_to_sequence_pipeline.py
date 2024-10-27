@@ -1,4 +1,4 @@
-from src.components.get_file_names_from_txt import get_file_names_from_txt
+from components.get_file_list import get_file_names_from_txt
 from src.components.video_to_frames import video_to_frames
 from src.components.pascal_xml_src.pascal_voc_setup_directory_structure import pascal_xml_setup_directory_structure
 from src.components.pascal_xml_src.update_xml import update_xml_files
