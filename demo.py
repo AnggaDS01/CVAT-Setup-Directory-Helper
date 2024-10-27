@@ -48,3 +48,31 @@
 # print(coco_data['categories'] == valid_coco_data['categories'])
 
 # print('\n\n')
+
+import globox
+import json
+from pathlib import Path
+
+def main() -> None:
+    txt_path = Path("Data Zone/Annotated-Images-Assets/Highway-Traffic/HT_00001/data_train/labels/")  # Where the .txt files are
+    images_path = Path("Data Zone/Annotated-Images-Assets/Highway-Traffic/HT_00001/data_train/images/")  
+    save_file = Path("Data Zone/")
+
+    # YOLOv5
+    yolo = globox.AnnotationSet.from_yolo_v5(
+        folder=txt_path,
+        image_folder=images_path
+    )
+
+    # yolo.save_coco(save_file, auto_ids=True)
+
+    yolo.save_pascal_voc(save_file)
+
+    # with open(save_file, 'r') as file:
+    #     data = json.load(file)
+
+    # with open(save_file, 'w') as f:
+    #     json.dump(data, f, indent=4)
+
+if __name__ == "__main__":
+    main()

@@ -162,5 +162,5 @@ cython_debug/
 #.idea/
 
 Video_to_Frames_Extractor.egg-info
-Data Zone/*
+Data Zone
 main.txt
