@@ -22,7 +22,6 @@ def move_images_and_labels(image_file, target_image_dir, label_dir=None, target_
             label_file = label_dir / f"{image_file.stem}.txt" if label_dir else None
             label_dest = target_label_dir / f"{image_file.stem}.txt" if target_label_dir else None
         else:
-            # Untuk COCO, tidak perlu mengatur file label
             label_file, label_dest = None, None
 
         move_file_with_check(
