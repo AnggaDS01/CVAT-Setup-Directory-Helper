@@ -1,6 +1,4 @@
 from src.constants import *
-
-from shutil import move
 import os
 
 def yolo_setup_labels_dir(output_labels_dir, output_images_dir) -> None:

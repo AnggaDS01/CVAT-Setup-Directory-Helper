@@ -15,20 +15,6 @@ def extract_frames_from_video(
     images_ext,
     image_size
 ) -> None:
-    """
-    Function to extract frames from a video and save them as images.
-
-    Parameters:
-    - video_target_name_path (str): Path to the target video file.
-    - fps (int, optional): Frames per second to extract. Default is 30.
-    - images_ext (str, optional): File extension for the output images. Default is 'jpg'.
-    - image_size (tuple, optional): Size of the output images as (width, height).
-      If set to None, the original frame size will be used.
-
-    Returns:
-    None
-    """
-
     display_function_name(inspect.currentframe())
     
     # Check if output directory exists, if not, create it

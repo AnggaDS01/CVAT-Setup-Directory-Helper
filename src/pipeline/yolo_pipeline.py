@@ -3,7 +3,6 @@ from src.components.yolo_src.yolo_setup_directory_structure import yolo_setup_di
 from src.components.yolo_src.yolo_splitter import yolo_split_dataset
 from src.components.target_store_directory import get_annotated_target_dir
 from src.constants import *
-from pathlib import Path
 
 # Pipeline for yolo
 def yolo_pipeline_format_processor(

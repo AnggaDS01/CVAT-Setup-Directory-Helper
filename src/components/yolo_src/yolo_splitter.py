@@ -1,10 +1,8 @@
 from src.components.display_function_name import display_function_name
 from src.components.split_helper import batch_move_files, split_settings, display_info_split
-from functools import partial
 from src.constants import *
 
 import os
-import random
 import inspect
 from pathlib import Path
 
@@ -14,19 +12,6 @@ def yolo_split_dataset(
     random_split,
     seed 
 ) -> None:
-    """
-    Split for a YOLO dataset of images and labels into training, validation, and testing sets.
-
-    Parameters:
-        images_labels_dir_path (Path): The path to the directory where the images and labels are stored.
-        split_ratio (tuple): A tuple of two floats that sums to 1.0 (train, val) or None, but if you give it like (0.8, 0.1), it will automatically calculate the ratio for the test set.
-            to be used for training, validation, and testing, respectively. If None, no splitting is done.
-        random_split (bool): Whether to split the data randomly or sequentially. Defaults to True.
-        seed (int): The seed for random splitting. Defaults to 42.
-
-    Returns:
-        None
-    """
     display_function_name(inspect.currentframe())
 
     if split_ratio is None:

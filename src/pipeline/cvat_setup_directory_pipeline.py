@@ -71,4 +71,7 @@ def setup_dir_pipeline(
                 seed=seed, 
             )
 
+        case _:
+            raise ValueError(f"Unsupported output format: {format_output}\nSupported formats: 'yolo', 'coco', 'pascal_voc'")
+
     return 
