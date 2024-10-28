@@ -78,13 +78,10 @@ pip install -r requirements.txt
 ```
 
 ## **Step 4 How the program works**
-Structure folder:
+So in the Data Zone directory **(Warning: Do Not Delete This Directory)**, is the place to store images or videos. I will use the following structure as an example:
 
 ```
 CVAT-Setup-Directory-Helper
-├── .gitignore
-├── annotation_tool_helper.egg-info
-├── control_panel.py
 ├── Data Zone
 │   ├── Annotated-Images-Assets [IF YOU HAVE IMAGES PUT THEM HERE]
 │   │   ├── Highway-Traffic [OUTPUT FOR VIDEO CASE]
@@ -100,52 +97,45 @@ CVAT-Setup-Directory-Helper
 |   |   |       |   |   ├── ...
 |   |   |       ├── data_test
 |   |   |       └── data_valid
-│   │   └── Highway-Traffic-02 [LET'S SAY YOU PUT YOUR PICTURES IN THIS FOLDER]
-|   |   |   ├── HT_00001_00000.jpg
-|   |   |   ├── HT_00001_00001.jpg
-|   |   |   ├── ...
+│   │   └── Highway-Traffic-02 [LET'S SAY YOU PUT YOUR IMAGES IN THIS FOLDER]
+|   |       ├── HT_00001_00000.jpg
+|   |       ├── HT_00001_00001.jpg
+|   |       ├── ...
 │   └── Videos-Assets [IF YOU HAVE A VIDEO PUT IT HERE]
 │       └── Highway-Traffic
 │           └── HT_00001
 |               └── 4K Video of Highway Traffic! (online-video-cutter.com).mp4
-├── demo.py
-├── main.txt
-├── notebook
-│   └── experiments.ipynb
-├── README.md
-├── requirements.txt
-├── run_pipeline.py
-├── run_plot_results.py
-├── setup.py
-├── src
-│   ├── components
-│   │   ├── coco_src
-│   │   │   ├── coco_setup_directory_structure.py
-│   │   │   └── coco_splitter.py
-│   │   ├── display_function_name.py
-│   │   ├── get_file_list.py
-│   │   ├── pascal_voc_src
-│   │   │   ├── pascal_voc_setup_directory_structure.py
-│   │   │   └── pascal_voc_splitter.py
-│   │   ├── plot_results
-│   │   │   ├── plot_coco_json_bbox.py
-│   │   │   ├── plot_pascal_voc_bbox.py
-│   │   │   └── plot_yolo_bbox.py
-│   │   ├── setup_images_directory.py
-│   │   ├── split_helper.py
-│   │   ├── target_store_directory.py
-│   │   ├── video_to_frames.py
-│   │   └── yolo_src
-│   │       ├── yolo_setup_directory_structure.py
-│   │       ├── yolo_setup_labels_directory.py
-│   │       └── yolo_splitter.py
-│   ├── constants
-│   │   └── __init__.py
-│   ├── pipeline
-│       ├── coco_pipeline.py
-│       ├── cvat_setup_directory_pipeline.py
-│       ├── pacal_voc_pipeline.py
-│       └── yolo_pipeline.py
-├── tree.py
-└── tree_output.txt
 ```
+
+### **Step 4.1 Annotated-Images-Assets**
+For the **Annotated-Images-Assets** directory, it is a place to store images and output from video extraction, so if you have an image dataset then put it in the **Annotated-Images-Assets** directory. for images can be stored in a nested folder, for example:
+
+```
+│   ├── Annotated-Images-Assets 
+│   │   └── Highway-Traffic-02
+|   |       └── HT_00001
+|   |           ├── HT_00001_00000.jpg
+|   |           ├── HT_00001_00001.jpg
+|   |           ├── ...
+```
+
+So this is useful when you have a project, where there are dataset categories that need to be labeled, for example
+
+```
+│   ├── Annotated-Images-Assets 
+│   │   └── License-Plate
+|   |       ├── Indonesia
+|   |       |   ├── idn_00000.jpg
+|   |       |   ├── idn_00001.jpg
+|   |       |   ├── ...
+|   |       ├── Thailand
+|   |       |   ├── th_00000.jpg
+|   |       |   ├── th_00001.jpg
+|   |       |   ├── ...
+|   |       └── Malaysia
+|   |           ├── my_00000.jpg
+|   |           ├── my_00001.jpg
+|   |           ├── ...
+```
+
+> **Note:** It should be noted that subfolder creation cannot be done automatically in this program, so it needs to be made manually, this program can only be used for splitting data and extracting videos into images, in the future I want to make it in the form of a GUI so that it is easier to organize the dataset.
