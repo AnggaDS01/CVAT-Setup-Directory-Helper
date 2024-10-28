@@ -1,4 +1,4 @@
-# Iris Classification ML Project Workflow
+# CVAT-Setup-Directory-Helper
 
 # How to run?
 
