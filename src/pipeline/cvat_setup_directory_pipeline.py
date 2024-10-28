@@ -3,7 +3,6 @@ from src.pipeline.coco_pipeline import coco_pipeline_format_processor
 from src.pipeline.pacal_voc_pipeline import pascal_voc_pipeline_format_processor
 from pathlib import Path
 
-
 def setup_dir_pipeline(
     format_output=None,
     source_path: Path=None, 
