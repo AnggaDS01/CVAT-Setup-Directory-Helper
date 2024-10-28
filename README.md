@@ -54,7 +54,7 @@ python -m venv myenv
 ```
 
 #### **Step 2.2.1 Windows venv activation**
-To activate your venv on Windows, you need to run a script that gets installed by venv. If you created your venv in a directory called venv, the command would be:
+To activate your venv on Windows, you need to run a script that gets installed by venv. If you created your venv in a directory called `myvenv`, the command would be:
 
 ```bash
 # In cmd.exe
@@ -64,7 +64,7 @@ myenv\Scripts\Activate.ps1
 ```
 
 #### **Step 2.2.2 Linux and MacOS venv activation**
-On Linux and MacOS, we activate our virtual environment with the source command. If you created your venv in the myvenv directory, the command would be:
+On Linux and MacOS, we activate our virtual environment with the source command. If you created your venv in the `myvenv` directory, the command would be:
 
 ```bash
 $ source myvenv/bin/activate
