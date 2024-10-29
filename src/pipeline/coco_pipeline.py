@@ -6,7 +6,6 @@ from src.constants import *
 
 from pathlib import Path
 
-# Pipeline utama untuk menjalankan proses dari awal hingga akhir
 def coco_pipeline_format_processor(
         source_path, 
         fps, 
@@ -17,6 +16,24 @@ def coco_pipeline_format_processor(
         seed,
     ) -> None:
 
+    """
+    Pipeline for COCO format.
+
+    This function processes the source path and its content according to the chosen format
+    for object detection datasets. It supports COCO format.
+
+    Parameters:
+        source_path (Path): The path to the source directory containing videos or images.
+        fps (int): Frames per second to extract from videos.
+        images_ext (str): The file extension for images.
+        image_size (tuple): The desired size for the output images.
+        split_ratio (tuple): The ratio for splitting the dataset (e.g., (0.8, 0.1) for train and validation).
+        random_split (bool): Whether to randomly split the dataset.
+        seed (int): Seed for random splitting.
+
+    Returns:
+        None
+    """
     ANNOTATED_TARGET_DIR_PATH = get_annotated_target_dir(source_path)
 
     # 1. extract frames from video
@@ -38,7 +55,7 @@ def coco_pipeline_format_processor(
 
     # 3. split dataset
     coco_split_dataset(
-        images_labels_dir_path=ANNOTATED_TARGET_DIR_PATH, 
+        input_images_dir=ANNOTATED_TARGET_DIR_PATH, 
         split_ratio=split_ratio,
         random_split=random_split, 
         seed=seed

@@ -15,6 +15,21 @@ def yolo_setup_directory_structure(
         image_size
     ) -> None:
 
+    """
+    Sets up the directory structure for YOLO format.
+
+    This function processes the source path and its content according to the chosen format
+    for object detection datasets. It supports YOLO format.
+
+    Parameters:
+        input_images_dir (Path): The path to the source directory containing videos or images.
+        is_video (bool): Whether the input is a video or not.
+        image_size (tuple): The desired size for the output images.
+
+    Returns:
+        None
+    """
+    
     display_function_name(inspect.currentframe())
 
     output_images_dir = Path(os.path.join(input_images_dir, TRAIN_DIR, IMAGES_DIR))

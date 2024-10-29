@@ -4,7 +4,6 @@ from src.components.yolo_src.yolo_splitter import yolo_split_dataset
 from src.components.target_store_directory import get_annotated_target_dir
 from src.constants import *
 
-# Pipeline for yolo
 def yolo_pipeline_format_processor(
         source_path, 
         fps, 
@@ -15,6 +14,24 @@ def yolo_pipeline_format_processor(
         seed,
     ) -> None:
 
+    """
+    Pipeline for YOLO format.
+
+    This function processes the source path and its content according to the chosen format
+    for object detection datasets. It supports YOLO format.
+
+    Parameters:
+        source_path (Path): The path to the source directory containing videos or images.
+        fps (int): Frames per second to extract from videos.
+        images_ext (str): The file extension for images.
+        image_size (tuple): The desired size for the output images.
+        split_ratio (tuple): The ratio for splitting the dataset (e.g., (0.8, 0.1) for train and validation).
+        random_split (bool): Whether to randomly split the dataset.
+        seed (int): Seed for random splitting.
+
+    Returns:
+        None
+    """
     ANNOTATED_TARGET_DIR_PATH = get_annotated_target_dir(source_path)
 
     # 1. extract frames from video

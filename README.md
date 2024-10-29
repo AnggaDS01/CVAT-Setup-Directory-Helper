@@ -164,4 +164,4 @@ so in running this program you only focus on those two files
 This is the main file that runs the program. It takes in the control_panel.py file and runs the pipeline.
 
 ### **Step 5.2 control_panel.py**
-the control_panel.py contains variables that are used to set the output of the video or image dataset that you have, for videos you can set how many FPS, then the image size, and the desired split ratio.
+The control_panel.py contains variables that are used to set the output of the video or image dataset that you have, for videos you can set how many FPS, then the image size, and the desired split ratio.
