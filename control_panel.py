@@ -1,15 +1,15 @@
 from pathlib import Path
 
-IMAGE_SIZE = None
-FPS = 3
-EXT = 'jpg'
-SPLIT_RATIO = (0.7, 0.2)
-RANDOM_SPLIT = True
-SEED = 42
+IMAGE_SIZE = (640, 640) # (w, h), If set to None then it will follow the original size
+FPS = 5 # frame per second
+EXT = 'jpg' # image extension
+SPLIT_RATIO = (0.7, 0.2) # (train, val) if the total ratio of train and valid is not equal to 1.0 then the remainder will be assigned to the test ratio, and If set to None then no split will be performed
+RANDOM_SPLIT = True # If set to True then it will perform random split
+SEED = 42 # random seed
 
 # ====== PATH AREA ======
-VIDEO_TARGET_NAME_PATH = Path(f"Data Zone/Videos-Assets/Highway-Traffic/HT_00001/4K Video of Highway Traffic! (online-video-cutter.com).mp4")
-IMAGES_TARGET_DIR_PATH = Path(f"C:/Workspace/Python Area/CVAT-Setup-Directory-Helper/Data Zone/Annotated-Images-Assets/aaq")
+VIDEO_TARGET_NAME_PATH = Path(f"Data Zone/Videos-Assets/Highway-Traffic/HT_00001/4K Video of Highway Traffic! (online-video-cutter.com).mp4") # video path
+IMAGES_TARGET_DIR_PATH = Path(f"Data Zone/Annotated-Images-Assets/Highway-Traffic-02") # image directory path
 
 # # ====== PLOT RESULT ======
 # PARENT_DIR_NAME = 'valid'
