@@ -77,7 +77,7 @@ $ source myvenv/bin/activate
 pip install -r requirements.txt
 ```
 
-## **Step 4 How the program works**
+## **Step 4 Directory Structure Reading**
 So in the Data Zone directory **(Warning: Do Not Delete This Directory)**, is the place to store images or videos. I will use the following structure as an example:
 
 ```
@@ -139,3 +139,29 @@ So this is useful when you have a project, where there are dataset categories th
 ```
 
 > **Note:** It should be noted that subfolder creation cannot be done automatically in this program, so it needs to be made manually, this program can only be used for splitting data and extracting videos into images, in the future I want to make it in the form of a GUI so that it is easier to organize the dataset.
+ 
+### **Step 4.2 Videos-Assets**
+Similarly to Annotated-Images-Assets, with Videos-Assets, you put your videos in this folder.
+
+```
+│   └── Videos-Assets
+│       └── Highway-Traffic
+│           └── HT_00001
+|               └── 4K Video of Highway Traffic! (online-video-cutter.com).mp4
+```
+
+and of course you can store your videos in nested folders.
+
+## **Step 5 How the Program Works**
+```
+├── run_pipeline.py
+├── control_panel.py
+```
+
+so in running this program you only focus on those two files
+
+### **Step 5.1 run_pipeline.py**
+This is the main file that runs the program. It takes in the control_panel.py file and runs the pipeline.
+
+### **Step 5.2 control_panel.py**
+the control_panel.py contains variables that are used to set the output of the video or image dataset that you have, for videos you can set how many FPS, then the image size, and the desired split ratio.
