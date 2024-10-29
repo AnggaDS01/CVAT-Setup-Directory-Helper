@@ -162,6 +162,7 @@ cython_debug/
 #.idea/
 
 Video_to_Frames_Extractor.egg-info
-# Data Zone/Annotated-Images-Assets/
-# Data Zone/Videos-Assets/
+Data Zone/*
 main.txt
+
+!delete_this.txt
