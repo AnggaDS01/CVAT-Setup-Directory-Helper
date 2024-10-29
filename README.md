@@ -150,7 +150,40 @@ Similarly to Annotated-Images-Assets, with Videos-Assets, you put your videos in
 |               └── 4K Video of Highway Traffic! (online-video-cutter.com).mp4
 ```
 
-and of course you can store your videos in nested folders.
+and of course you can store your videos in nested folders. and this is an example of the output of the video process:
+
+```
+│   ├── Annotated-Images-Assets 
+│   │   ├── Highway-Traffic
+│   │   │   └── HT_00001
+|   |   |       ├── data_train
+|   |   |       |   ├── images
+|   |   |       |   |   ├── HT_00001_00000.jpg
+|   |   |       |   |   ├── HT_00001_00003.jpg
+|   |   |       |   |   ├── ...
+|   |   |       |   └── labels
+|   |   |       |   |   ├── HT_00001_00000.txt
+|   |   |       |   |   ├── HT_00001_00003.txt
+|   |   |       |   |   ├── ...
+|   |   |       ├── data_test
+|   |   |       |   ├── images
+|   |   |       |   |   ├── HT_00001_00002.jpg
+|   |   |       |   |   ├── HT_00001_00011.jpg
+|   |   |       |   |   ├── ...
+|   |   |       |   └── labels
+|   |   |       |   |   ├── HT_00001_00002.txt
+|   |   |       |   |   ├── HT_00001_00011.txt
+|   |   |       |   |   ├── ...
+|   |   |       └── data_valid
+|   |   |       |   ├── images
+|   |   |       |   |   ├── HT_00001_00006.jpg
+|   |   |       |   |   ├── HT_00001_00013.jpg
+|   |   |       |   |   ├── ...
+|   |   |       |   └── labels
+|   |   |       |   |   ├── HT_00001_00006.txt
+|   |   |       |   |   ├── HT_00001_00013.txt
+|   |   |       |   |   ├── ...
+```
 
 ## **Step 5 How the Program Works**
 ```
@@ -165,3 +198,15 @@ This is the main file that runs the program. It takes in the control_panel.py fi
 
 ### **Step 5.2 control_panel.py**
 The control_panel.py contains variables that are used to set the output of the video or image dataset that you have, for videos you can set how many FPS, then the image size, and the desired split ratio.
+
+## **Step 6 Upload to CVAT**
+After the directory has been set up, the processed image results can be directly uploaded to CVAT, you can create projects and specific tasks, for example for training, validation or test data, you can see a brief tutorial on creating projects in [CVAT](https://youtu.be/CGOBR5ZmIC0?si=ndb2QChr_YEopntS)
+
+!["CVAT Demo"](Images/cvat_demo.png)
+
+---
+
+# Conclusion
+This repository, CVAT-Setup-Directory-Helper, is designed to streamline dataset preparation for CVAT. By simplifying directory structuring, image extraction, and dataset splitting, this tool enables a more efficient workflow for creating training-ready data for computer vision tasks. It supports both image and video assets, offering flexible frame extraction, split configurations, and a user-friendly pipeline to enhance productivity.
+
+With these configurations in place, users can save time on repetitive tasks and focus on enhancing their dataset quality, contributing to better model training and performance. For any project that involves organizing and preparing data for annotation, CVAT-Setup-Directory-Helper aims to be a reliable solution.
